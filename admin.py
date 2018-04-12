@@ -62,21 +62,4 @@ class Admin(Resource):
             return jsonify({"success":False,"error":e.__str__()})
 
 
-# class Userdelete(Resource):
-    
-    
 
-    
-#     @cross_origin()
-#     @auth
-#     def post(self):
-#         try:
-#             data=request.get_json(force=True)
-#             print(data)
-#             _id=data["id"]
-#             # deleted_one=mongo.db.users.find_one({"user_id":_id})
-#             # mongo.db.trash.insert_one(deleted_one)
-#             mongo.db.users.delete_one({"user_id":_id})
-#             return jsonify({"success":True,"message":"User deleted"})
-#         except Exception as e:
-#             return jsonify({"success":False,"error":e.__str__()})
