@@ -8,18 +8,8 @@ from flask_cors import CORS,cross_origin
 
 class Admin(Resource):
     
-    # @cross_origin()
-    # @auth
-    # def get(self):
-    #     data=[]
-    #     try:
-    #         cursor=mongo.db.users.find({},{"_id":0})
-    #         for user in cursor:
-    #             data.append(user)
-    #         return jsonify({"success":True,"response":data})
-
-    #     except Exception as e:
-    #         return jsonify({"success":False,"error":e.__str__})
+    
+    
     
     @cross_origin()
     # @auth
