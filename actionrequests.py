@@ -51,6 +51,16 @@ class Edit(Resource):
                 update_output_details={"Board_Name":type_name}
                 inventory.boards.update_one({"_Id":type_id},{"$set":update_name})
                 inventory.outputdetails.update_one({"Board_Id":type_id},{"$set":update_output_details})
+                
+                # cursor=inventory.item_details.find({},{"name":0,"total_quantity":0,"boxes":0,"remaining_quantity":0,"_Id":0})
+                
+                # for detail in cursor:
+                #     _id=detail["_id"]
+                    
+
+
+
+
                 return jsonify({"success":True,"message":"board updated"})
 
             elif type_edit=="itemnames":
