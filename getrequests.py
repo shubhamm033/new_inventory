@@ -54,7 +54,7 @@ class Gettabledetails(Resource):
 
         try:
             
-            headers=["Serial.No","Item","Boxes","Quantity Total","Quantity_Remaining"]
+            headers=["Serial.No","Item","Qty total","Qty remaining"]
             board_names=[]
             cursor=inventory.item_details.find({},{"_id":0})
             for board in cursor[0]["board_details"]:
@@ -73,7 +73,7 @@ class Gettabledetails(Resource):
                     item_by_board.append(board)
                 
                 new_data=[
-                    count,detail["name"],detail["boxes"],detail["total_quantity"],detail["remaining_quantity"]
+                    count,detail["name"],detail["total_quantity"],detail["remaining_quantity"]
                 ]
                 new_data+=item_by_board
                 count= count+1
