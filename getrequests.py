@@ -65,7 +65,7 @@ class Gettabledetails(Resource):
             cursor=inventory.item_details.find({},{"_id":0})
             
             board_details=[]
-            count=0
+            count=1
             for detail in cursor:
 
                 item_by_board=[]
