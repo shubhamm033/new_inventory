@@ -21,6 +21,8 @@ class Input(Resource):
             date=data["date"]
             item_details=data["items"]
             price=int(data["price"])
+            tax=int(data["tax"])
+            grandtotal=int(data["grandtotal"])
         except Exception as e:
 
             return jsonify({"success":False,"error":e.__str__()})
@@ -113,7 +115,9 @@ class Input(Resource):
                 "Date_of_Entry":dateToepoch(date),
                 "User_Name":user_name,
                 "items_details":item_details,
-                "price":price
+                "price":price,
+                "tax":tax,
+                "Grand_Total":grandtotal
             }
             inventory.inputdetails.insert_one(new_details)
             
@@ -122,17 +126,6 @@ class Input(Resource):
             
         except Exception as e:
             return jsonify({"succees":False,"error":e.__str__()})
-
-
-
-            
-
-
-
-
-
-
-            
 
 
 
