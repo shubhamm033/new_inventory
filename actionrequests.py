@@ -79,6 +79,7 @@ class Edit(Resource):
                         if item["_Id"] != type_id:
                             count+=1
                             
+                            
                         else:
                             update_input_items={"items_details."+str(count)+".name":type_name}
                             inventory.inputdetails.update_one({"_id":Id},{"$set":update_input_items})
