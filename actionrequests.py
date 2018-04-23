@@ -73,38 +73,32 @@ class Edit(Resource):
                 for detail in cursor:
                     Id=detail["_id"]
                     
-                    match=False
-                    while match==False:
-                        count=0
-                        for item in detail["items_details"]:
-                            if item["_Id"] != type_id:
-                                count+=1
-                            else:
-                                match=True
-                                break
+                    count=0
                         
-                        update_input_items={"items_details."+str(count)+".name":type_name}
-
-                        inventory.inputdetails.update_one({"_id":Id},{"$set":update_input_items})
+                    for item in detail["items_details"]: 
+                        if item["_Id"] != type_id:
+                            count+=1
+                            
+                        else:
+                            update_input_items={"items_details."+str(count)+".name":type_name}
+                            inventory.inputdetails.update_one({"_id":Id},{"$set":update_input_items})
+                            break
                 
                 cursor=inventory.outputdetails.find({},{"Board_Name":0,"Board_Id":0,"Receiver_Id":0,"Receiver_Name":0,"Date_of_receiving":0})
                 
                 for detail in cursor:
                     Id=detail["_id"]
                     
-                    match=False
-                    while match==False:
-                        count=0
-                        for item in detail["items_details"]:
-                            if item["_Id"] != type_id:
-                                count+=1
-                            else:
-                                match=True
-                                break
+                    count=0
                         
-                        update_input_items={"items_details."+str(count)+".name":type_name}
-
-                        inventory.outputdetails.update_one({"_id":Id},{"$set":update_input_items})
+                    for item in detail["items_details"]: 
+                        if item["_Id"] != type_id:
+                            count+=1
+                            
+                        else:
+                            update_input_items={"items_details."+str(count)+".name":type_name}
+                            inventory.outputdetails.update_one({"_id":Id},{"$set":update_input_items})
+                            break
                 
 
 
