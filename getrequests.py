@@ -130,8 +130,8 @@ class Getoutputdetails(Resource):
                 detail["epoch_of_date"]=detail["Date_of_receiving"]
                 detail["Date_of_receiving"]=nicetime(detail["Date_of_receiving"])
                 
-                for item in detail["items_details"]:
-                    item.pop("_Id")
+                # for item in detail["items_details"]:
+                #     item.pop("_Id")
                 if index%2==0:
                     output_details1.append(detail)
 
