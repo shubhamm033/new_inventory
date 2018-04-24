@@ -25,7 +25,7 @@ class Edit(Resource):
                 update_input_details={"User_Name":type_name}
                 
                 inventory.users.update_one({"_Id":type_id},{"$set":update_name})
-                inventory.inputdetails.update({"User_Id":type_id},{"$set":update_input_details})
+                inventory.inputdetails.update_many({"User_Id":type_id},{"$set":update_input_details})
   
                 return jsonify({"success":True,"message":"user updated"})
             
@@ -34,7 +34,7 @@ class Edit(Resource):
                 update_name={"name":type_name}
                 update_input_details={"Vendor_Name":type_name}
                 inventory.vendors.update_one({"_Id":type_id},{"$set":update_name})
-                inventory.inputdetails.update({"Vendor_Id":type_id},{"$set":update_input_details})
+                inventory.inputdetails.update_many({"Vendor_Id":type_id},{"$set":update_input_details})
                 return jsonify({"success":True,"message":"vendor updated"})
             
             elif type_edit=="receivers":
@@ -42,7 +42,7 @@ class Edit(Resource):
                 update_name={"name":type_name}
                 update_output_details={"Receiver_Name":type_name}
                 inventory.receivers.update_one({"_Id":type_id},{"$set":update_name})
-                inventory.outputdetails.update({"Receiver_Id":type_id},{"$set":update_output_details})
+                inventory.outputdetails.update_many({"Receiver_Id":type_id},{"$set":update_output_details})
                 return jsonify({"success":True,"message":"receiver updated"})
 
             elif type_edit=="boards":
@@ -50,7 +50,7 @@ class Edit(Resource):
                 update_name={"name":type_name}
                 update_output_details={"Board_Name":type_name}
                 inventory.boards.update_one({"_Id":type_id},{"$set":update_name})
-                inventory.outputdetails.update_one({"Board_Id":type_id},{"$set":update_output_details})
+                inventory.outputdetails.update_many({"Board_Id":type_id},{"$set":update_output_details})
                 
                 # cursor=inventory.item_details.find({},{"name":0,"total_quantity":0,"boxes":0,"remaining_quantity":0,"_Id":0})
                 
