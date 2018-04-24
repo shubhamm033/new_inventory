@@ -6,7 +6,7 @@ mongo_port = 27017
 uri  = "mongodb://" + mongo_ip + ":" + str(mongo_port)+"/"
 mongo = MongoClient(uri)
 
-inventory=mongo['inventory1']
+inventory=mongo['ainventory']
 
 
 
