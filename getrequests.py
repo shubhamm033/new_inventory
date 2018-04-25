@@ -58,7 +58,7 @@ class Gettabledetails(Resource):
             board_names=[]
             cursor=inventory.item_details.find({},{"_id":0})
             for board in cursor[0]["board_details"]:
-                board_names.append(board)
+                board_names.append(board["name"])
                 
             headers+=board_names
             
@@ -69,8 +69,8 @@ class Gettabledetails(Resource):
             for detail in cursor:
 
                 item_by_board=[]
-                for board in detail["board_details"].values():
-                    item_by_board.append(board)
+                for board in detail["board_details"]:
+                    item_by_board.append(board["quantity"])
                 
                 new_data=[
                     count,detail["name"],detail["total_quantity"],detail["remaining_quantity"]

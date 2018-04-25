@@ -85,12 +85,16 @@ class Input(Resource):
                 else:
                     item_id=uuid.uuid4().hex
                     item["_Id"]=item_id
-                    board_details={}
+                    board_details=[]
 
                     cursor=inventory.boards.find({},{"_id":0})
                     
                     for board in cursor:
-                        board_details[board["name"]]=0
+                        new_detail={"name":board["name"],
+                        "_Id":board["_Id"],
+                        "quantity":0}
+                        
+                        board_details.append(new_detail)
 
                     
                     new_item = {

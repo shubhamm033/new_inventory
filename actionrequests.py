@@ -52,12 +52,25 @@ class Edit(Resource):
                 inventory.boards.update_one({"_Id":type_id},{"$set":update_name})
                 inventory.outputdetails.update_many({"Board_Id":type_id},{"$set":update_output_details})
                 
-                # cursor=inventory.item_details.find({},{"name":0,"total_quantity":0,"boxes":0,"remaining_quantity":0,"_Id":0})
+                cursor=inventory.item_details.find({},{"name":0,"total_quantity":0,"boxes":0,"remaining_quantity":0,"_Id":0})
                 
-                # for detail in cursor:
-                #     _id=detail["_id"]
+                for detail in cursor:
+                    Id=detail["_id"]
                     
-
+                    count=0
+                    
+                    for board in detail["board_details"]: 
+                        
+                        if board["_Id"] != type_id:
+                            count+=1
+                            
+                            
+                            
+                        else:
+                            update_input_items={"board_details."+str(count)+".name":type_name}
+                            inventory.item_details.update_one({"_id":Id},{"$set":update_input_items})
+                            break
+                
 
 
 
@@ -74,7 +87,7 @@ class Edit(Resource):
                     Id=detail["_id"]
                     
                     count=0
-                        
+
                     for item in detail["items_details"]: 
                         if item["_Id"] != type_id:
                             count+=1

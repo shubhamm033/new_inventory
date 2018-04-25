@@ -24,19 +24,18 @@ class Output(Resource):
             if board_exist:
 
                 board_id=board_exist["_Id"]
-                
+                board_name=board_exist["name"]
             else:
                 board_id = uuid.uuid4().hex
                 new_board = {
                     "_Id":board_id,
                     "name":board_name
                     }
+                
                 inventory.boards.insert_one(new_board)            
 
-                update_board_details={"board_details."  +  board_name : 0}
-
-                
-                inventory.item_details.update_many({},{"$set":update_board_details})
+                update_board_details={"name":board_name,"_Id":board_id,"quantity":0}
+                inventory.item_details.update_many({},{"$push":{"board_details":update_board_details}})
            
             receiver_exist=inventory.receivers.find_one({"name":receiver_name})
             
@@ -64,13 +63,16 @@ class Output(Resource):
                     if quantity_exist<quantity:
                         return jsonify({"success":False,"message":" Entered Quantity does not exist" })
                     
-                    quantity_in_board=item_exist["board_details"][board_name]    
-                    
-                    update_item={"remaining_quantity":quantity_exist-quantity,"board_details."+board_name:quantity_in_board+quantity }
-                    inventory.item_details.update_one({"name":item_name},{"$set":update_item})
+                    else:
+                        count=0
+                        for board in item_exist["board_details"]:
 
-
-
+                            if board_id!=board["_Id"]:
+                                count+=1
+                            else:
+                                quantity_in_board=board["quantity"]
+                                update_item_details={"board_details."+str(count)+".quantity": quantity_in_board+quantity,"remaining_quantity":quantity_exist-quantity}
+                                inventory.item_details.update_one({"name":item_name},{"$set":update_item_details})
 
                 else:
 
