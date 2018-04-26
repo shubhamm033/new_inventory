@@ -3,10 +3,14 @@ from flask import request,jsonify
 from database import inventory
 import uuid
 from general import *
+from auth import auth
+from flask_cors import CORS,cross_origin
 
 
 class Output(Resource):
-
+    
+    @auth
+    @cross_origin()
     def post(self):
 
         try:

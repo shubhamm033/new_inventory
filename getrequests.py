@@ -4,14 +4,15 @@ from database import inventory
 import uuid
 from general import *
 from flask_cors import CORS,cross_origin
+from auth import auth
 
 class Getnames(Resource):
-
+    @auth
     @cross_origin()
     def get(self):
         
-
         try:
+            print("hello")
             cursor = inventory.vendors.find({},{"_id":0})
             vendors=[]
             for vendor in cursor:
@@ -46,7 +47,7 @@ class Getnames(Resource):
 
 
 class Gettabledetails(Resource):
-
+    @auth
     @cross_origin()
     def get(self):
 
@@ -86,7 +87,7 @@ class Gettabledetails(Resource):
         
 class Getinputdetails(Resource):
     
-    
+    @auth
     @cross_origin()
     def get(self):    
         
@@ -116,7 +117,7 @@ class Getinputdetails(Resource):
             return jsonify({"success":False,"error":e.__str__()})
 
 class Getoutputdetails(Resource):
-    
+    @auth
     @cross_origin()
     def get(self):
         output_details1=[]

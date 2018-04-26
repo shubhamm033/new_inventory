@@ -10,6 +10,7 @@ from flask_cors import CORS,cross_origin
 
 class Login(Resource):
     
+    
     @cross_origin()
     def post(self):
         

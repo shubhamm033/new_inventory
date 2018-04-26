@@ -4,12 +4,13 @@ from database import inventory
 import uuid
 from general import *
 from flask_cors import CORS,cross_origin
+from auth import auth
 
 
 
 
 class Edit(Resource):
-    
+    @auth
     @cross_origin()
     def post(self):
 

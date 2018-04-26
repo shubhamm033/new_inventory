@@ -3,11 +3,13 @@ from flask import request,jsonify
 from database import inventory
 import uuid
 from general import *
-
+from auth import auth
+from flask_cors import CORS,cross_origin
 
 class Input(Resource):
 
-
+    @auth
+    @cross_origin()
     def post(self):
         
         try:
@@ -77,10 +79,7 @@ class Input(Resource):
                     remaining_exist=int(item_exist["remaining_quantity"])
                     update_item = {"boxes":boxes_exist+boxes,"total_quantity":quantity_exist+quantity,"remaining_quantity":remaining_exist+quantity}
 
-                    inventory.item_details.update_one({"name":item_name},{"$set":update_item})                    
-                    
-                    
-                    
+                    inventory.item_details.update_one({"name":item_name},{"$set":update_item})
 
                 else:
                     item_id=uuid.uuid4().hex
