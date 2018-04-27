@@ -10,7 +10,7 @@ class Getnames(Resource):
     @auth
     @cross_origin()
     def get(self):
-        
+
         try:
             print("hello")
             cursor = inventory.vendors.find({},{"_id":0})

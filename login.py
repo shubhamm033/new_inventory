@@ -10,13 +10,13 @@ from flask_cors import CORS,cross_origin
 
 class Login(Resource):
     
-    
+
     @cross_origin()
     def post(self):
         
         try:
             data=request.get_json(force=True)
-            
+            print(data)
         
         except Exception as e:
             return jsonify({"success":False,"error":e.__str__()})

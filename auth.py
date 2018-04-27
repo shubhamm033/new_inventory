@@ -7,11 +7,11 @@ def auth(func):
 		@wraps(func) # to preserve name, docstring, etc.
 		def decorated(*args, **kwargs):
 			try:
-				
+				print(request.headers)
 				token = request.headers["Authorization"]
 				
 				_id = jwt.decode(token, jwt_secret, algorithms=["HS256"])["_id"]
 			except Exception as e:
-				return jsonify({"response" : 'Headers required'})
+				return jsonify({"success":False,"response" : 'Headers required'})
 			return func( *args, **kwargs)
 		return decorated
