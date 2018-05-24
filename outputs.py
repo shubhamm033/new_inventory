@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from flask import request,jsonify
-from database import inventory
+from database import *
 import uuid
 from general import *
 from auth import auth
@@ -24,6 +24,7 @@ class Output(Resource):
             return jsonify({"success":False,"error":e.__str__()})
 
         try:
+            inventory.boards.create_index("name",unique=True)
             board_exist = inventory.boards.find_one({"name":board_name})
             if board_exist:
 
@@ -41,6 +42,7 @@ class Output(Resource):
                 update_board_details={"name":board_name,"_Id":board_id,"quantity":0}
                 inventory.item_details.update_many({},{"$push":{"board_details":update_board_details}})
            
+            inventory.receivers.create_index("name",unique=True)
             receiver_exist=inventory.receivers.find_one({"name":receiver_name})
             
             if receiver_exist:
@@ -95,7 +97,14 @@ class Output(Resource):
                 "items_details":item_details,
                 "Date_of_receiving":dateToepoch(date)
             }
+            
             inventory.outputdetails.insert_one(new_details)
+            
+            
+            # inventory.outputdetails.create_index([("items_details._Id",ASCENDING),("Board_Id",DESCENDING)])
+            inventory.outputdetails.create_index("items_details._Id")
+            inventory.outputdetails.create_index("Board_Id")
+            inventory.outputdetails.create_index("Receiver_Id")
             return jsonify({"success":True,"message":"Item details inserted"})
             
             
