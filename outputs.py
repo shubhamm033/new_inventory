@@ -9,15 +9,15 @@ from flask_cors import CORS,cross_origin
 
 class Output(Resource):
     
-    @auth
+    # @auth
     @cross_origin()
     def post(self):
 
         try:
             data=request.get_json(force=True)
             
-            receiver_name=data["collector"]
-            board_name=data["board"]
+            receiver_name=data["collector"].strip()
+            board_name=data["board"].strip()
             item_details=data["items"]
             date=data["date"]
         except Exception as e:
@@ -57,7 +57,8 @@ class Output(Resource):
             
             
             for item in item_details:
-                item_name=item["name"]
+                item_name=item["name"].strip()
+                item["name"]=item["name"].strip()
                 quantity=int(item["quantity"])
                 
                 item_exist=inventory.item_details.find_one({"name":item_name})

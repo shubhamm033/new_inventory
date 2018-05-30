@@ -18,8 +18,8 @@ class Input(Resource):
             
 
             bill_no=data["bill"]
-            vendor_name=data["vendor"]
-            user_name=data["user"]
+            vendor_name=data["vendor"].strip()
+            user_name=data["user"].strip()
             date=data["date"]
             item_details=data["items"]
             totalprice=int(data["price"])
@@ -63,8 +63,8 @@ class Input(Resource):
             
             for item in item_details:
                 
-                item_name=item["name"]
-
+                item_name=item["name"].strip()
+                item["name"]=item["name"].strip()
 
                 boxes=int(item["boxes"])
                 quantity=int(item["quantity"])
