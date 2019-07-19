@@ -1,2 +1,188 @@
+The following are the endpoints which were developed for the application:
 
-i am God
+1. /inventory/admin
+2. /inventory/login
+3. /inventory/input
+4. /inventory/output
+5. /inventory/getnames
+6. /inventory/edit
+7. /inventory/tabledatails
+8. /inventory/inputdetails
+9. /inventory/outputdetails
+
+The above mentioned apis are explained below:
+
+
+1. URI: /inventory/admin
+   
+   Description: Admin details to be added to the admin collection of database inventory.
+   Method: POST
+   Parameters: name, email, password
+   
+   Request Example:
+                  request.post(url, json= {"name":"anyname","email":"anyname@gmail.com","password":password}) 
+   
+   Response Example: 
+   
+     On success:
+      "success":True,"message":"admin added"
+     On failure:
+      "success": False, "message": Corresponding error
+
+2. URI: /inventory/login
+
+   Description:  Admin details in the admin collection of database inventory to check whether entered details exist.
+   Method: POST
+   Parameters: email, password
+   
+   Request Example: 
+                  request.post(url, json= {"email":"anyname@gmail.com","password":password}) 
+   
+   Response Example:
+   
+    On success:
+      "success":True,"token":token(jwt token to be used for authentication), "username": email
+    On failure:
+      "success": False,"message": Corresponding error
+ 
+ 3. URI: /inventory/input
+ 
+    Description:  input details to be entered in the inputdetails collection and if item_details does not contain details
+                           about any item from the newely entered details, new document will be created in the item_details collection 
+                           else, the entry regarding that item in the item_details will be updated(mainly, the quantity of the entered 
+                           item will be added to the remaining_quantity and total_quantity in the document).
+    Method: POST
+    Parameters: bill_no, vendor_name, user_name, date, item_details, totalprice, tax, grandtotal, totalitems
+    
+    Request Example: 
+                  request.post(url, json= {"bill_no":bill_no, "vendor_name": vendor_name, "user_name":user_name, 
+                                          "date": date, "item_details":[{"name":"item_1":"boxes":10,"quantity":100,"price":5000},
+                                           {"name":"item_2":"boxes":10,"quantity":100,"price":5000}],
+                                          "totalprice": 10000, "tax":100, "grandtotal": 10100, "totalitems": 10}) 
+   
+    Response Example:
+    
+      On success:
+        "success":True,"message": "Item details inserted"
+      On failure:
+        "success": False,"message": Corresponding error
+    
+    
+ 4. URI: /inventory/output
+ 
+    Description:  Output details to be entered in the outputdetails collection and if item_details does not contain details
+                           about any item from the newely entered details, it will return the message that item does not exist
+                           in the item_details collection. Else,the entry regarding that item in the item_details will be updated(mainly, 
+                           the quantity of the entered item will be subtracted from the remaining_quantity from the corresponding document).
+    
+    
+ 
+ 
+    Method: POST
+    Parameters: receiver_name, board_name,item_details, date
+    
+    Request Example: 
+                  request.post(url, json= {"receiver_name": receiver_name,"date": date,
+                                           "item_details":[{"name":"item_1":"boxes":10,"quantity":100,"price":5000},
+                                           {"name":"item_2":"boxes":10,"quantity":100,"price":5000}]) 
+   
+    Response Example:
+    
+      On success:
+        "success":True,"message": "Item details inserted"
+      On failure:
+        "success": False,"message": Corresponding error
+ 
+    
+    
+  5. URI: /inventory/getnames:
+  
+     Description: Get the name of all the vendors, receivers, users, items, boards from their corresponding collections.
+                          
+     Method: GET
+     Parameters: None
+     
+     Request Example:
+                    request.get(url)
+     
+     Response EXample:
+     
+      On success:
+        "success":True,"message":"vendors":vendors,"users":users,"item_names":item_names,"boards":boards,"receivers":receivers
+      On failure:
+        "success": False,"message": Corresponding error
+   
+ 
+  6. URI: /inventory/inputdetails
+  
+     Description: Get the details of all the items that are present in the inputdetails collection.
+     
+     Method: GET
+     Parameters: None
+     
+     Request Example:
+                    request.get(url)
+     
+     Response Example:
+      
+      On success:
+        "success":True",result1":input_details1,"result2":input_details2
+        Note: Input details1 and Input details2 can be easily deduced from code.  
+      On Failure:
+         "success": False,"message": Corresponding error
+        
+     
+    7. URI: /inventory/outputdetails
+  
+     Description: Get the details of all the items that are present in the outputdetails collection.
+     
+     Method: GET
+     Parameters: None
+     
+     Request Example:
+                    request.get(url)
+     
+     Response Example:
+      
+      On success:
+        "success":True",result1":output_details1,"result2":output_details2
+        Note: output_details1 and output_details2 can be easily deduced from code.
+          
+      On Failure:
+         "success": False,"message": Corresponding error
+     
+     
+     8. URI: /inventory/tabledetails
+  
+     Description: Get the details of all the items that are present in the item_details collection.
+     
+     Method: GET
+     Parameters: None
+     
+     Request Example:
+                    request.get(url)
+     
+     Response Example:
+      
+      On success:
+        "success":True","result":board_details,"headers": headers
+      On Failure:
+         "success": False,"message": Corresponding error   
+    
+ 
+ Note: In Request Example, Example is given using request module of python.
+   
+   
+    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
